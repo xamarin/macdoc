@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoMac.Foundation;
+using Foundation;
 
 namespace macdoc
 {
@@ -12,13 +12,13 @@ namespace macdoc
 	partial class BookmarkAssistant
 	{
 		[Outlet]
-		MonoMac.AppKit.NSTableView bookmarkTableView { get; set; }
+		AppKit.NSTableView bookmarkTableView { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSButton deleteButton { get; set; }
+		AppKit.NSButton deleteButton { get; set; }
 
 		[Action ("DeleteButtonClicked:")]
-		partial void DeleteButtonClicked (MonoMac.AppKit.NSButton sender);
+		partial void DeleteButtonClicked (AppKit.NSButton sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class BookmarkPopoverController : MonoMac.AppKit.NSViewController
+	public partial class BookmarkPopoverController : AppKit.NSViewController
 	{
 		NSPopover parentPopover;
 		BookmarkManager.Entry entry;
@@ -15,13 +15,7 @@ namespace macdoc
 		{
 			Initialize ();
 		}
-		
-		[Export ("initWithCoder:")]
-		public BookmarkPopoverController (NSCoder coder) : base (coder)
-		{
-			Initialize ();
-		}
-		
+
 		public BookmarkPopoverController (NSPopover popover, BookmarkManager.Entry entry) : base ("BookmarkPopover", NSBundle.MainBundle)
 		{
 			this.parentPopover = popover;

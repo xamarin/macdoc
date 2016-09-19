@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoMac.Foundation;
+using Foundation;
 
 namespace macdoc
 {
@@ -12,13 +12,13 @@ namespace macdoc
 	partial class AppleDocMergeWindowController
 	{
 		[Outlet]
-		MonoMac.AppKit.NSProgressIndicator ProgressWidget { get; set; }
+		AppKit.NSProgressIndicator ProgressWidget { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTextField WizardText { get; set; }
+		AppKit.NSTextField WizardText { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSButton WizardButton { get; set; }
+		AppKit.NSButton WizardButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

@@ -1,24 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class FindBarExtraordinaireController : MonoMac.AppKit.NSViewController
+	public partial class FindBarExtraordinaireController : AppKit.NSViewController
 	{
 		public FindBarExtraordinaireController (IntPtr handle) : base (handle)
 		{
 			Initialize ();
 		}
-		
-		[Export ("initWithCoder:")]
-		public FindBarExtraordinaireController (NSCoder coder) : base (coder)
-		{
-			Initialize ();
-		}
-		
+
 		public FindBarExtraordinaireController () : base ("FindBarExtraordinaire", NSBundle.MainBundle)
 		{
 			Initialize ();

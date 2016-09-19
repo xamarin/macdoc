@@ -3,20 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class AppleDocMergeWindowController : MonoMac.AppKit.NSWindowController
+	public partial class AppleDocMergeWindowController : AppKit.NSWindowController
 	{
 		public AppleDocMergeWindowController (IntPtr handle) : base (handle)
-		{
-			Initialize ();
-		}
-
-		[Export ("initWithCoder:")]
-		public AppleDocMergeWindowController (NSCoder coder) : base (coder)
 		{
 			Initialize ();
 		}

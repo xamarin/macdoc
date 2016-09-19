@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoMac.Foundation;
+using Foundation;
 
 namespace macdoc
 {
@@ -12,16 +12,16 @@ namespace macdoc
 	partial class BookmarkPopover
 	{
 		[Outlet]
-		MonoMac.AppKit.NSButton doneButton { get; set; }
+		AppKit.NSButton doneButton { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSButton deleteButton { get; set; }
+		AppKit.NSButton deleteButton { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSFormCell nameField { get; set; }
+		AppKit.NSFormCell nameField { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSFormCell notesField { get; set; }
+		AppKit.NSFormCell notesField { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

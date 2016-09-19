@@ -6,12 +6,13 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{87641BCE-5461-4802-BEA4-53D1BCAC3D06}</ProjectGuid>
-    <ProjectTypeGuids>{948B3504-5B70-4649-8FE4-BDE1FB46EC69};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>macdoc</RootNamespace>
     <AssemblyName>macdoc</AssemblyName>
     <LastXamMacNagTime>12/11/2012 10:17:55 PM</LastXamMacNagTime>
-    <SuppressXamMacMigration>True</SuppressXamMacMigration>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseXamMacFullFramework>true</UseXamMacFullFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -46,14 +47,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="MonoMac">
-      <HintPath>..\..\src\MonoMac.dll</HintPath>
-    </Reference>
     <Reference Include="monodoc">
       <HintPath>lib\monodoc.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Posix" />
+    <Reference Include="Xamarin.Mac" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyDocument.cs">
@@ -110,8 +107,8 @@
     <Compile Include="Product.cs" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="MyDocument.xib" xmlns="" />
-    <InterfaceDefinition Include="MainMenu.xib" xmlns="" />
+    <InterfaceDefinition Include="MyDocument.xib" />
+    <InterfaceDefinition Include="MainMenu.xib" />
     <InterfaceDefinition Include="BookmarkPopover.xib" />
     <InterfaceDefinition Include="BookmarkAssistant.xib" />
     <InterfaceDefinition Include="FindBarExtraordinaire.xib" />
@@ -120,10 +117,9 @@
   <ItemGroup>
     <None Include="Info.plist" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Mono\MonoMac\v0.0\Mono.MonoMac.targets" />
   <ItemGroup>
     <Content Include="monodoc.icns" />
     <Content Include="Credits.rtf" />
   </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>

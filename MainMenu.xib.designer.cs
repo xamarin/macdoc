@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoMac.Foundation;
+using Foundation;
 
 namespace macdoc
 {
@@ -12,13 +12,13 @@ namespace macdoc
 	partial class AppDelegate
 	{
 		[Action ("HandlePrint:")]
-		partial void HandlePrint (MonoMac.Foundation.NSObject sender);
+		partial void HandlePrint (Foundation.NSObject sender);
 
 		[Action ("HandleSearch:")]
-		partial void HandleSearch (MonoMac.Foundation.NSObject sender);
+		partial void HandleSearch (Foundation.NSObject sender);
 
 		[Action ("HandleFind:")]
-		partial void HandleFind (MonoMac.AppKit.NSMenuItem sender);
+		partial void HandleFind (AppKit.NSMenuItem sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

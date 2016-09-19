@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoMac.Foundation;
+using Foundation;
 
 namespace macdoc
 {
@@ -12,79 +12,79 @@ namespace macdoc
 	partial class MyDocument
 	{
 		[Outlet]
-		MonoMac.AppKit.NSSegmentedCell navigationCells { get; set; }
+		AppKit.NSSegmentedCell navigationCells { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSOutlineView outlineView { get; set; }
+		AppKit.NSOutlineView outlineView { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTableView searchResults { get; set; }
+		AppKit.NSTableView searchResults { get; set; }
 
 		[Outlet]
-		MonoMac.WebKit.WebView webView { get; set; }
+		WebKit.WebView webView { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTabView tabSelector { get; set; }
+		AppKit.NSTabView tabSelector { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSView spinnerView { get; set; }
+		AppKit.NSView spinnerView { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSProgressIndicator spinnerWidget { get; set; }
+		AppKit.NSProgressIndicator spinnerWidget { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSView indexSpinnerView { get; set; }
+		AppKit.NSView indexSpinnerView { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSProgressIndicator indexSpinnerWidget { get; set; }
+		AppKit.NSProgressIndicator indexSpinnerWidget { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSButton addBookmarkBtn { get; set; }
+		AppKit.NSButton addBookmarkBtn { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSPopUpButton bookmarkSelector { get; set; }
+		AppKit.NSPopUpButton bookmarkSelector { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSButton viewBookmarksBtn { get; set; }
+		AppKit.NSButton viewBookmarksBtn { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSSegmentedCell bookmarkToolbar { get; set; }
+		AppKit.NSSegmentedCell bookmarkToolbar { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSSplitView splitView { get; set; }
+		AppKit.NSSplitView splitView { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTableView multipleMatchResults { get; set; }
+		AppKit.NSTableView multipleMatchResults { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTableView indexResults { get; set; }
+		AppKit.NSTableView indexResults { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSSearchField indexSearchEntry { get; set; }
+		AppKit.NSSearchField indexSearchEntry { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSSearchField toolbarSearchEntry { get; set; }
+		AppKit.NSSearchField toolbarSearchEntry { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSScrollView searchScrollView { get; set; }
+		AppKit.NSScrollView searchScrollView { get; set; }
 		
 		[Action ("IndexItemClicked:")]
-		partial void IndexItemClicked (MonoMac.AppKit.NSTableView sender);
+		partial void IndexItemClicked (AppKit.NSTableView sender);
 
 		[Action ("StartSearch:")]
-		partial void StartSearch (MonoMac.AppKit.NSSearchField sender);
+		partial void StartSearch (AppKit.NSSearchField sender);
 
 		[Action ("MultipleMatchItemClicked:")]
-		partial void MultipleMatchItemClicked (MonoMac.AppKit.NSTableView sender);
+		partial void MultipleMatchItemClicked (AppKit.NSTableView sender);
 
 		[Action ("SearchItemClicked:")]
-		partial void SearchItemClicked (MonoMac.AppKit.NSTableView sender);
+		partial void SearchItemClicked (AppKit.NSTableView sender);
  
 		[Action ("StartIndexSearch:")]
-		partial void StartIndexSearch (MonoMac.AppKit.NSSearchField sender);
+		partial void StartIndexSearch (AppKit.NSSearchField sender);
 
 		[Action ("BookmarkToolbarClicked:")]
-		partial void BookmarkToolbarClicked (MonoMac.Foundation.NSObject sender);
+		partial void BookmarkToolbarClicked (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
