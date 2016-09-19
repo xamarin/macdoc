@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class BookmarkAssistantController : MonoMac.AppKit.NSViewController
+	public partial class BookmarkAssistantController : AppKit.NSViewController
 	{
 		IList<BookmarkManager.Entry> entries;
 		BookmarkDataSource source;
@@ -14,12 +14,7 @@ namespace macdoc
 		public BookmarkAssistantController (IntPtr handle) : base (handle)
 		{
 		}
-		
-		[Export ("initWithCoder:")]
-		public BookmarkAssistantController (NSCoder coder) : base (coder)
-		{
-		}
-		
+
 		public BookmarkAssistantController (IList<BookmarkManager.Entry> entries) : base ("BookmarkAssistant", NSBundle.MainBundle)
 		{
 			this.entries = entries;
@@ -53,32 +48,32 @@ namespace macdoc
 				this.manager = manager;
 			}
 			
-			public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, int row)
+			public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, nint row)
 			{
 				if (tableColumn == null)
 					return null;
 
-				int columnIndex = tableView.FindColumn ((NSString)tableColumn.Identifier);
+				var columnIndex = tableView.FindColumn ((NSString)tableColumn.Identifier);
 				switch (columnIndex) {
 				case 0:
-					return new NSString (entries[row].Name);
+					return new NSString (entries[(int)row].Name);
 				case 1:
-					return new NSString (entries[row].Notes);
+					return new NSString (entries[(int)row].Notes);
 				case 2:
-					return new NSString (entries[row].Url);
+					return new NSString (entries[(int)row].Url);
 				default:
 					return null;
 				}
 			}
 			
-			public override void SetObjectValue (NSTableView tableView, NSObject theObject, NSTableColumn tableColumn, int row)
+			public override void SetObjectValue (NSTableView tableView, NSObject theObject, NSTableColumn tableColumn, nint row)
 			{
 				NSString newNSValue = theObject as NSString;
 				if (newNSValue == null)
 					return;
 				string newValue = newNSValue.ToString ();
-				int columnIndex = tableView.FindColumn ((NSString)tableColumn.Identifier);
-				BookmarkManager.Entry entry = entries[row];
+				var columnIndex = tableView.FindColumn ((NSString)tableColumn.Identifier);
+				BookmarkManager.Entry entry = entries[(int)row];
 				switch (columnIndex) {
 				case 0:
 					if (!string.IsNullOrWhiteSpace (newValue))
@@ -97,7 +92,7 @@ namespace macdoc
 				manager.CommitBookmarkChange (entry);
 			}
 			
-			public override int GetRowCount (NSTableView tableView)
+			public override nint GetRowCount (NSTableView tableView)
 			{
 				return entries.Count;
 			}

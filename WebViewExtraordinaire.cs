@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
-using MonoMac.WebKit;
-using MonoMac.ObjCRuntime;
+using Foundation;
+using AppKit;
+using WebKit;
+using ObjCRuntime;
 
 namespace macdoc
 {
@@ -33,13 +33,7 @@ namespace macdoc
 		{
 			Initialize ();
 		}
-		
-		[Export ("initWithCoder:")]
-		public WebViewExtraordinaire (NSCoder coder) : base (coder)
-		{
-			Initialize ();
-		}
-		
+
 		void Initialize ()
 		{
 			// The initializations we do here are Lion-specific
@@ -109,7 +103,7 @@ namespace macdoc
 			if (ctrl == null)
 				return;
 			
-			InternalPerformFinderAction ((NSTextFinderAction)ctrl.Tag);
+			InternalPerformFinderAction ((NSTextFinderAction)(int)ctrl.Tag);
 		}
 		
 		void InternalPerformFinderAction (NSTextFinderAction action)

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class BookmarkPopover : MonoMac.AppKit.NSView
+	public partial class BookmarkPopover : AppKit.NSView
 	{
 		public class BookmarkEventArgs : EventArgs
 		{

@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Monodoc;
-using MonoMac.AppKit;
-using MonoMac.Foundation;
-using MonoMac.WebKit;
+using AppKit;
+using Foundation;
+using WebKit;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Drawing;
+using CoreGraphics;
 
 namespace macdoc
 {
-	public partial class MyDocument : MonoMac.AppKit.NSDocument
+	public partial class MyDocument : AppKit.NSDocument
 	{
 		internal Dictionary<Node,WrapNode> nodeToWrapper = new Dictionary<Node, WrapNode> ();
 		History history;
@@ -35,12 +35,6 @@ namespace macdoc
 		{
 		}
 
-		// Called when created directly from a XIB file
-		[Export("initWithCoder:")]
-		public MyDocument (NSCoder coder) : base(coder)
-		{
-		}
-		
 		public override string DisplayName {
 			get {
 				return "Mono Documentation Browser";
@@ -102,7 +96,7 @@ namespace macdoc
 			var popover = new NSPopover ();
 			popover.Behavior = NSPopoverBehavior.Transient;
 			popover.ContentViewController = new BookmarkPopoverController (popover, entry);
-			popover.Show (new RectangleF (0, 0, 0, 0), (NSView)sender, NSRectEdge.MinYEdge);
+			popover.Show (new CGRect (0, 0, 0, 0), (NSView)sender, NSRectEdge.MinYEdge);
 		}
 		
 		void HandleRemoveBookmarkBtnActivated (object sender, EventArgs e)
@@ -143,7 +137,7 @@ namespace macdoc
 		
 		class SplitViewDelegate : NSSplitViewDelegate
 		{
-			public override float ConstrainSplitPosition (NSSplitView splitView, float proposedPosition, int subviewDividerIndex)
+			public override nfloat ConstrainSplitPosition (NSSplitView splitView, nfloat proposedPosition, nint subviewDividerIndex)
 			{
 				if (subviewDividerIndex != 0)
 					return proposedPosition;
@@ -184,7 +178,7 @@ namespace macdoc
 				var bmarks = manager.GetAllBookmarks ();
 				var index = bookmarkSelector.IndexOfSelectedItem;
 				if (index >= 0 && index < bmarks.Count)
-					LoadUrl (bmarks[index].Url, true);
+					LoadUrl (bmarks[(int)index].Url, true);
 			};
 			bookmarkSelector.SelectItem (-1);
 		}
@@ -194,7 +188,7 @@ namespace macdoc
 			var popover = new NSPopover ();
 			popover.Behavior = NSPopoverBehavior.Transient;
 			popover.ContentViewController = new BookmarkAssistantController (AppDelegate.BookmarkManager.GetAllBookmarks ());
-			popover.Show (new RectangleF (0, 0, 0, 0), (NSView)sender, NSRectEdge.MinYEdge);
+			popover.Show (new CGRect (0, 0, 0, 0), (NSView)sender, NSRectEdge.MinYEdge);
 		}
 		
 		void ToggleSearchCreationStatus (object sender, EventArgs e)
@@ -217,13 +211,13 @@ namespace macdoc
 					indexResults.ReloadData ();
 					
 					var splitViewFrame = splitView.Frame;
-					splitView.Frame = new RectangleF (splitViewFrame.X,
+					splitView.Frame = new CGRect (splitViewFrame.X,
 					                                  splitViewFrame.Y - indexSpinnerHeight,
 					                                  splitViewFrame.Width,
 					                                  splitViewFrame.Height + indexSpinnerHeight);
 					
 					var searchScrollViewFrame = searchScrollView.Frame;
-					searchScrollView.Frame = new RectangleF (searchScrollViewFrame.X,
+					searchScrollView.Frame = new CGRect (searchScrollViewFrame.X,
 					                                         searchScrollViewFrame.Y - searchSpinnerHeight,
 					                                         searchScrollViewFrame.Width,
 					                                         searchScrollViewFrame.Height + searchSpinnerHeight);
@@ -352,20 +346,20 @@ namespace macdoc
 		
 		void ShowMultipleMatches ()
 		{
-			float middle = (splitView.MaxPositionOfDivider (0) - splitView.MinPositionOfDivider (0))/2;
+			float middle = (float)(splitView.MaxPositionOfDivider (0) - splitView.MinPositionOfDivider (0))/2;
 			splitView.SetPositionOfDivider (middle, 0);
 		}
 		
 		// Action: when the user clicks on the index table view
 		partial void IndexItemClicked (NSTableView sender)
 		{
-			OnIndexRowSelected (sender.ClickedRow);
+			OnIndexRowSelected ((int)sender.ClickedRow);
 		}
 		
 		// Action: when the user clicks on the index table view
 		partial void SearchItemClicked (NSTableView sender)
 		{
-			OnSearchRowSelected (sender.ClickedRow);
+			OnSearchRowSelected ((int)sender.ClickedRow);
 		}
 		
 		// Action: when the user clicks on the multiple matches table view
@@ -373,7 +367,7 @@ namespace macdoc
 		{
 			string url = null;
 			try {
-				url = current_entry [sender.ClickedRow].Url;
+				url = current_entry [(int)sender.ClickedRow].Url;
 			} catch {
 				return;
 			}
@@ -520,7 +514,7 @@ namespace macdoc
 			var item = nodeToWrapper [n];
 			var row = outlineView.RowForItem (item);
 			outlineView.ScrollRowToVisible (row);
-			return row;
+			return (int)row;
 		}
 		
 		public class OutlineDelegate : NSOutlineViewDelegate {
@@ -593,16 +587,16 @@ namespace macdoc
 				this.doc = doc;
 			}
 				
-			public override int GetRowCount (NSTableView tableView)
+			public override nint GetRowCount (NSTableView tableView)
 			{
 				if (doc.current_entry == null)
 					return 0;
 				return doc.current_entry.Count;
 			}
 				
-			public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, int row)
+			public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, nint row)
 			{
-				Topic topic = doc.current_entry [row];
+				Topic topic = doc.current_entry [(int)row];
 				return new NSString (RenderTopicMatch (topic));
 			}
 				

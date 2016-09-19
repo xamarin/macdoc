@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Monodoc;
-using MonoMac.AppKit;
-using MonoMac.Foundation;
-using MonoMac.WebKit;
+using AppKit;
+using Foundation;
+using WebKit;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Drawing;
+using CoreGraphics;
 
 namespace macdoc
 {
@@ -61,10 +61,10 @@ namespace macdoc
 			nodeToWrapper = parent.nodeToWrapper;
 		}
 		
-		public override NSObject GetChild (NSOutlineView outlineView, int index, NSObject item)
+		public override NSObject GetChild (NSOutlineView outlineView, nint index, NSObject item)
 		{
 			WrapNode wrap;
-			Node n = (Node) (item == null ? Root.RootNode : (Node) GetNode (item)).ChildNodes [index];
+			Node n = (Node) (item == null ? Root.RootNode : (Node) GetNode (item)).ChildNodes [(int)index];
 
 			if (nodeToWrapper.ContainsKey (n))
 				return nodeToWrapper [n];
@@ -80,7 +80,7 @@ namespace macdoc
 			return GetNode (item).ChildNodes.Count > 0;
 		}
 		
-		public override int GetChildrenCount (NSOutlineView outlineView, NSObject item)
+		public override nint GetChildrenCount (NSOutlineView outlineView, NSObject item)
 		{
 			if (item == null)
 				return Root.RootNode.ChildNodes.Count;
@@ -107,16 +107,16 @@ namespace macdoc
 			this.searcher = searcher;
 		}
 		
-		public override int GetRowCount (NSTableView tableView)
+		public override nint GetRowCount (NSTableView tableView)
 		{
 			if (searcher.Index == null)
 				return 0;
 			return searcher.Index.Rows;
 		}
 		
-		public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, int row)
+		public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, nint row)
 		{
-			return new NSString (searcher.Index.GetValue (row));
+			return new NSString (searcher.Index.GetValue ((int)row));
 		}
 	}
 	
@@ -176,16 +176,16 @@ namespace macdoc
 			sections.Clear ();
 		}
 		
-		public override int GetRowCount (NSTableView tableView)
+		public override nint GetRowCount (NSTableView tableView)
 		{
 			return data.Count;
 		}
 		
-		public override NSCell GetCell (NSTableView tableView, NSTableColumn tableColumn, int row)
+		public override NSCell GetCell (NSTableView tableView, NSTableColumn tableColumn, nint row)
 		{
 			if (tableView == null)
 				return null;
-			var resultEntry = data[row];
+			var resultEntry = data[(int)row];
 			return !string.IsNullOrEmpty (resultEntry.SectionName) ? headerCell : normalCell;
 		}
 		
@@ -198,16 +198,16 @@ namespace macdoc
 			return resultEntry.ResultSet == null ? null : resultEntry.ResultSet.GetUrl (resultEntry.Index);
 		}
 		
-		public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, int row)
+		public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, nint row)
 		{
-			var resultEntry = data[row];
+			var resultEntry = data[(int)row];
 			return new NSString (!string.IsNullOrEmpty (resultEntry.SectionName) ? resultEntry.SectionName : resultEntry.ResultSet.GetTitle (resultEntry.Index));
 		}
 		
-		public override bool ShouldSelectRow (NSTableView tableView, int row)
+		public override bool ShouldSelectRow (NSTableView tableView, nint row)
 		{
 			// If it's a section, do not select
-			return string.IsNullOrEmpty (data[row].SectionName);
+			return string.IsNullOrEmpty (data[(int)row].SectionName);
 		}
 		
 		// Keep the search term in memory so that heavy search can check if its result are still fresh enough

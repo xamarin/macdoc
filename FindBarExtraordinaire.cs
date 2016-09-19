@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class FindBarExtraordinaire : MonoMac.AppKit.NSView
+	public partial class FindBarExtraordinaire : AppKit.NSView
 	{
 		public event EventHandler FindTextChanged;
 		public event EventHandler CloseFindPanel;
@@ -16,17 +16,11 @@ namespace macdoc
 			Initialize ();
 		}
 		
-		[Export ("initWithCoder:")]
-		public FindBarExtraordinaire (NSCoder coder) : base (coder)
-		{
-			Initialize ();
-		}
-		
 		void Initialize ()
 		{
 		}
 		
-		public override void DrawRect (System.Drawing.RectangleF dirtyRect)
+		public override void DrawRect (CoreGraphics.CGRect dirtyRect)
 		{
 			NSColor.WindowBackground.Set ();
 			NSBezierPath.FillRect (dirtyRect);

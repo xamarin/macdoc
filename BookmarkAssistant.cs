@@ -1,24 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoMac.Foundation;
-using MonoMac.AppKit;
+using Foundation;
+using AppKit;
 
 namespace macdoc
 {
-	public partial class BookmarkAssistant : MonoMac.AppKit.NSView
+	public partial class BookmarkAssistant : AppKit.NSView
 	{
 		public event Action<int> BookmarkDeleted;
 		
 		public BookmarkAssistant (IntPtr handle) : base (handle)
 		{
 		}
-		
-		[Export ("initWithCoder:")]
-		public BookmarkAssistant (NSCoder coder) : base (coder)
-		{
-		}
-		
+
 		partial void DeleteButtonClicked (NSButton sender)
 		{
 			if (bookmarkTableView.SelectedRowCount != 1)
@@ -29,7 +24,7 @@ namespace macdoc
 				return;
 			var temp = BookmarkDeleted;
 			if (temp != null)
-				temp (index);
+				temp ((int)index);
 		}
 		
 		public NSTableView TableView {

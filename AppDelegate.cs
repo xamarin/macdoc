@@ -1,16 +1,16 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Drawing;
+using CoreGraphics;
 using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-using MonoMac.Foundation;
-using MonoMac.AppKit;
-using MonoMac.ObjCRuntime;
+using Foundation;
+using AppKit;
+using ObjCRuntime;
 
 using Monodoc;
 using System.Text;
@@ -122,7 +122,7 @@ namespace macdoc
 			}
 		}
 
-		public override void FinishedLaunching (NSObject notification)
+		public override void DidFinishLaunching (NSNotification notification)
 		{
 			// Check if we are loaded with a search term and load a document for it
 			var args = Environment.GetCommandLineArgs ();
@@ -188,13 +188,14 @@ namespace macdoc
 		
 		public override void WillFinishLaunching (NSNotification notification)
 		{
-			var selector = new MonoMac.ObjCRuntime.Selector ("handleGetURLEvent:withReplyEvent:");
+			var selector = new ObjCRuntime.Selector ("handleGetURLEvent:withReplyEvent:");
 			NSAppleEventManager.SharedAppleEventManager.SetEventHandler (this,
 			                                                             selector,
 			                                                             AEEventClass.Internet,
 			                                                             AEEventID.GetUrl);
 		}
-		
+
+
 		[Export ("handleGetURLEvent:withReplyEvent:")]
 		public void HandleGetURLEvent (NSAppleEventDescriptor evt, NSAppleEventDescriptor replyEvt)
 		{
@@ -289,6 +290,9 @@ namespace macdoc
 			mergeController.ShowWindow (this);
 			mergeController.Window.Center ();
 		}
+
+		[DllImport (Constants.ObjectiveCLibrary, EntryPoint = "objc_msgSend")]
+		public extern static System.IntPtr IntPtr_objc_msgSend_IntPtr_bool_IntPtr (IntPtr receiver, IntPtr selector, IntPtr arg1, bool arg2, IntPtr arg3);
 		
 		// We use a working OpenDocument method that doesn't return anything because of MonoMac bug#3380
 		public void Call_OpenDocument (NSUrl absoluteUrl, bool displayDocument, out NSError outError)
@@ -299,7 +303,7 @@ namespace macdoc
 			IntPtr outErrorPtr = Marshal.AllocHGlobal(4);
 			Marshal.WriteInt32(outErrorPtr, 0);
 
-			MonoMac.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr_bool_IntPtr (controller.Handle, selOpenDocumentWithContentsOfURLDisplayError_, absoluteUrl.Handle, displayDocument, outErrorPtr);
+			IntPtr_objc_msgSend_IntPtr_bool_IntPtr (controller.Handle, selOpenDocumentWithContentsOfURLDisplayError_, absoluteUrl.Handle, displayDocument, outErrorPtr);
 		}
 		
 		IntPtr selOpenDocumentWithContentsOfURLDisplayError_  = new Selector ("openDocumentWithContentsOfURL:display:error:").Handle;
