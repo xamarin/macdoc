@@ -291,7 +291,7 @@ namespace macdoc
 			mergeController.Window.Center ();
 		}
 
-		[DllImport ("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+		[DllImport (Constants.ObjectiveCLibrary, EntryPoint = "objc_msgSend")]
 		public extern static System.IntPtr IntPtr_objc_msgSend_IntPtr_bool_IntPtr (IntPtr receiver, IntPtr selector, IntPtr arg1, bool arg2, IntPtr arg3);
 		
 		// We use a working OpenDocument method that doesn't return anything because of MonoMac bug#3380
