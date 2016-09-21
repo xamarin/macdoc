@@ -12,7 +12,6 @@
     <AssemblyName>macdoc</AssemblyName>
     <LastXamMacNagTime>12/11/2012 10:17:55 PM</LastXamMacNagTime>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseXamMacFullFramework>true</UseXamMacFullFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -41,6 +40,7 @@
     <EnablePackageSigning>False</EnablePackageSigning>
     <IncludeMonoRuntime>False</IncludeMonoRuntime>
     <UseSGen>False</UseSGen>
+    <MonoBundlingExtraArgs>--embed-mono=false</MonoBundlingExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -122,4 +122,28 @@
     <Content Include="Credits.rtf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
+
+  <!--Since monodoc.dll is using System.Configuration.dll, we can't use Mobile profile + Linker.
+      Which results in 34MB MacDoc.app file size which increases Xamarin Studio.dmg file.
+      Way to reduce this size we use system mono and -embed-mono=false.
+      To furter reduce this size we invoke DeleteGacFiles target to remove all GAC dlls.
+      Which gets us down to 16.6MB of which Xamarin.Mac.dll is 14.1MB-->
+  <PropertyGroup>
+    <CreateAppBundleDependsOn>$(CreateAppBundleDependsOn);DeleteGacFiles</CreateAppBundleDependsOn>
+  </PropertyGroup>
+  <Target Name="DeleteGacFiles">
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/ICSharpCode.SharpZipLib.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/Mono.Posix.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/Mono.Security.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/mscorlib.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Configuration.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Core.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Net.Http.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Runtime.Serialization.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Security.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.ServiceModel.Internals.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Xml.dll" />
+      <Delete Files="$(AppBundleDir)/Contents/MonoBundle/System.Xml.Linq.dll" />
+  </Target>
 </Project>
