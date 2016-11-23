@@ -51,6 +51,7 @@
       <HintPath>lib\monodoc.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Mac" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyDocument.cs">

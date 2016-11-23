@@ -14,6 +14,8 @@ using ObjCRuntime;
 
 using Monodoc;
 using System.Text;
+using System.Reflection;
+using System.Configuration;
 
 namespace macdoc
 {
@@ -89,7 +91,18 @@ namespace macdoc
 			if (extraUncompiledDocs != null)
 				foreach (var dir in extraUncompiledDocs)
 					RootTree.AddUncompiledSource (dir);
-
+			
+			if (ConfigurationManager.AppSettings == null)
+			{
+				Logger.Log("Setting default settings because ConfigurationManager.AppSettings is null");
+				var keyValueConfigurationCollection = new KeyValueConfigurationCollection();
+				keyValueConfigurationCollection.Add("docPath", "/Library/Frameworks/Mono.framework/Versions/Current/lib/monodoc/");
+				keyValueConfigurationCollection.Add("docExternalPath", "");
+				typeof(Config).GetField("exeConfig", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, keyValueConfigurationCollection);
+				Lucene.Net.Support.AppSettings.Set("java.version", "");
+				Lucene.Net.Support.AppSettings.Set("java.vendor", "");
+			}
+		
 			Root = RootTree.LoadTree ();
 
 			if (extraDocs != null)
