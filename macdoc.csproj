@@ -40,7 +40,7 @@
     <EnablePackageSigning>False</EnablePackageSigning>
     <IncludeMonoRuntime>False</IncludeMonoRuntime>
     <UseSGen>False</UseSGen>
-    <MonoBundlingExtraArgs>--embed-mono=false</MonoBundlingExtraArgs>
+    <MonoBundlingExtraArgs>--embed-mono=false --registrar=dynamic</MonoBundlingExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
