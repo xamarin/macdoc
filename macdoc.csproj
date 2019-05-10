@@ -39,6 +39,7 @@
     <CreatePackage>False</CreatePackage>
     <EnablePackageSigning>False</EnablePackageSigning>
     <IncludeMonoRuntime>False</IncludeMonoRuntime>
+    <UseHardenedRuntime>True</UseHardenedRuntime>
     <UseSGen>False</UseSGen>
     <MonoBundlingExtraArgs>--embed-mono=false --registrar=dynamic</MonoBundlingExtraArgs>
   </PropertyGroup>
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="monodoc.icns" />
